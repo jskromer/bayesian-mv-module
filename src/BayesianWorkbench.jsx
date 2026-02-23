@@ -567,7 +567,7 @@ export default function BayesianWorkbench({ onBack }) {
 
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: 16 }}>
         {dataset ? (
-          <a href="https://mv-course.vercel.app/#/workbench" target="_blank" rel="noopener noreferrer"
+          <a href="https://cfdesigns.vercel.app/#/workbench" target="_blank" rel="noopener noreferrer"
             style={{ fontSize: 13, color: C.amber, textDecoration: "none", fontFamily: FONT }}
             onMouseEnter={e => e.currentTarget.style.textDecoration = "underline"}
             onMouseLeave={e => e.currentTarget.style.textDecoration = "none"}>
@@ -840,7 +840,7 @@ export default function BayesianWorkbench({ onBack }) {
 
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: 16 }}>
           <Btn secondary onClick={() => setStep(3)}>← Predictive</Btn>
-          <a href="https://mv-course.vercel.app/#/workbench" target="_blank" rel="noopener noreferrer"
+          <a href="https://cfdesigns.vercel.app/#/workbench" target="_blank" rel="noopener noreferrer"
             style={{ fontSize: 13, color: C.amber, textDecoration: "none", fontFamily: FONT }}
             onMouseEnter={e => e.currentTarget.style.textDecoration = "underline"}
             onMouseLeave={e => e.currentTarget.style.textDecoration = "none"}>
@@ -866,12 +866,12 @@ export default function BayesianWorkbench({ onBack }) {
             ← Bayesian Home
           </button>
           <span style={{ color: C.border }}>|</span>
-          <a href="https://mv-course.vercel.app" style={{ color: C.textDim, fontSize: 12, textDecoration: "none", fontFamily: FONT }}
+          <a href="https://cfdesigns.vercel.app" style={{ color: C.textDim, fontSize: 12, textDecoration: "none", fontFamily: FONT }}
             onMouseEnter={e => e.currentTarget.style.color = C.teal}
             onMouseLeave={e => e.currentTarget.style.color = C.textDim}>
-            M&V Course
+            CF Designs
           </a>
-          <a href="https://mv-course.vercel.app/#/workbench" style={{ color: C.textDim, fontSize: 12, textDecoration: "none", fontFamily: FONT }}
+          <a href="https://cfdesigns.vercel.app/#/workbench" style={{ color: C.textDim, fontSize: 12, textDecoration: "none", fontFamily: FONT }}
             onMouseEnter={e => e.currentTarget.style.color = C.amber}
             onMouseLeave={e => e.currentTarget.style.color = C.textDim}>
             Frequentist Workbench

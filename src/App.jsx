@@ -64,7 +64,7 @@ function Home({ onNavigate }) {
               <li style={{ fontSize: 14, color: C.textSoft, lineHeight: 1.7, marginBottom: 4 }}>Confidence interval: 95% CI around point estimate</li>
               <li style={{ fontSize: 14, color: C.textSoft, lineHeight: 1.7, marginBottom: 4 }}>Savings: 12% ± 3%</li>
             </ul>
-            <a href="https://mv-course.vercel.app/#/workbench" target="_blank" rel="noopener noreferrer"
+            <a href="https://cfdesigns.vercel.app/#/workbench" target="_blank" rel="noopener noreferrer"
               style={{ fontSize: 12, color: C.amber, textDecoration: "none", marginTop: 12, display: "inline-block" }}>
               Open frequentist workbench →
             </a>
@@ -136,9 +136,9 @@ function Home({ onNavigate }) {
             <div style={{ background: C.card, border: `1px solid ${C.border}`, borderRadius: 8, padding: "20px 24px", cursor: "pointer", transition: "border-color 0.2s" }}
               onMouseEnter={e => e.currentTarget.style.borderColor = C.amber}
               onMouseLeave={e => e.currentTarget.style.borderColor = C.border}>
-              <div style={{ fontSize: 11, color: C.amber, fontWeight: 600, letterSpacing: 2, fontFamily: "'IBM Plex Mono', monospace", marginBottom: 4 }}>Companion</div>
-              <div style={{ fontSize: 15, fontWeight: 600, color: C.white }}>IPMVP Implementation Course</div>
-              <div style={{ fontSize: 12, color: C.textSoft, marginTop: 4 }}>Protocol-aligned statistical modeling with the frequentist workbench</div>
+              <div style={{ fontSize: 11, color: C.amber, fontWeight: 600, letterSpacing: 2, fontFamily: "'IBM Plex Mono', monospace", marginBottom: 4 }}>Reference</div>
+              <div style={{ fontSize: 15, fontWeight: 600, color: C.white }}>IPMVP Translation Guide</div>
+              <div style={{ fontSize: 12, color: C.textSoft, marginTop: 4 }}>How Options A–D map to Boundary × Model Form × Duration</div>
             </div>
           </a>
         </div>
