@@ -565,7 +565,15 @@ export default function BayesianWorkbench({ onBack }) {
         </Card>
       )}
 
-      <div style={{ display: "flex", justifyContent: "flex-end", marginTop: 16 }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: 16 }}>
+        {dataset ? (
+          <a href="https://mv-course.vercel.app/#/workbench" target="_blank" rel="noopener noreferrer"
+            style={{ fontSize: 13, color: C.amber, textDecoration: "none", fontFamily: FONT }}
+            onMouseEnter={e => e.currentTarget.style.textDecoration = "underline"}
+            onMouseLeave={e => e.currentTarget.style.textDecoration = "none"}>
+            Compare: open this building in the frequentist workbench →
+          </a>
+        ) : <div />}
         <Btn onClick={() => setStep(1)} disabled={!dataset || !modelType}>Set priors →</Btn>
       </div>
     </>
@@ -830,8 +838,14 @@ export default function BayesianWorkbench({ onBack }) {
           </P>
         </Card>
 
-        <div style={{ display: "flex", justifyContent: "space-between", marginTop: 16 }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: 16 }}>
           <Btn secondary onClick={() => setStep(3)}>← Predictive</Btn>
+          <a href="https://mv-course.vercel.app/#/workbench" target="_blank" rel="noopener noreferrer"
+            style={{ fontSize: 13, color: C.amber, textDecoration: "none", fontFamily: FONT }}
+            onMouseEnter={e => e.currentTarget.style.textDecoration = "underline"}
+            onMouseLeave={e => e.currentTarget.style.textDecoration = "none"}>
+            Compare in frequentist workbench →
+          </a>
           <Btn secondary onClick={() => { setStep(0); setComputed(null); }}>Start over</Btn>
         </div>
       </>
@@ -847,9 +861,22 @@ export default function BayesianWorkbench({ onBack }) {
 
       {/* Nav bar */}
       <div style={{ borderBottom: `1px solid ${C.border}`, padding: "12px 32px", display: "flex", alignItems: "center", justifyContent: "space-between", background: C.surface }}>
-        <button onClick={onBack} style={{ background: "none", border: "none", color: C.teal, cursor: "pointer", fontSize: 14, padding: 0, fontFamily: FONT }}>
-          ← Back
-        </button>
+        <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+          <button onClick={onBack} style={{ background: "none", border: "none", color: C.teal, cursor: "pointer", fontSize: 13, padding: 0, fontFamily: FONT, fontWeight: 600 }}>
+            ← Bayesian Home
+          </button>
+          <span style={{ color: C.border }}>|</span>
+          <a href="https://mv-course.vercel.app" style={{ color: C.textDim, fontSize: 12, textDecoration: "none", fontFamily: FONT }}
+            onMouseEnter={e => e.currentTarget.style.color = C.teal}
+            onMouseLeave={e => e.currentTarget.style.color = C.textDim}>
+            M&V Course
+          </a>
+          <a href="https://mv-course.vercel.app/#/workbench" style={{ color: C.textDim, fontSize: 12, textDecoration: "none", fontFamily: FONT }}
+            onMouseEnter={e => e.currentTarget.style.color = C.amber}
+            onMouseLeave={e => e.currentTarget.style.color = C.textDim}>
+            Frequentist Workbench
+          </a>
+        </div>
         <div style={{ display: "flex", gap: 4 }}>
           {STEPS.map((s, i) => (
             <button key={s} onClick={() => i <= step ? setStep(i) : null}
