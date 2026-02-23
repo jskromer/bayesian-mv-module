@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useUser, SignIn, SignInButton, UserButton } from "@clerk/clerk-react";
 import BayesianWorkbench from "./BayesianWorkbench.jsx";
 
 const C = {
@@ -11,12 +12,75 @@ const C = {
   violet: "#7c5cbf", violetDim: "rgba(124,92,191,0.06)",
 };
 
+/* ───── Auth helpers ───── */
+function useAuth() {
+  try {
+    const { isLoaded, isSignedIn, user } = useUser();
+    return { isLoaded, isSignedIn, user, enabled: true };
+  } catch {
+    return { isLoaded: true, isSignedIn: true, user: null, enabled: false };
+  }
+}
+
+function AuthGate({ children, onHome }) {
+  const { isLoaded, isSignedIn, enabled } = useAuth();
+
+  if (!enabled) return children;
+  if (!isLoaded) return (
+    <div style={{ background: C.bg, minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
+      <div style={{ fontSize: 14, color: C.textDim, fontFamily: "'IBM Plex Sans', sans-serif" }}>Loading…</div>
+    </div>
+  );
+  if (!isSignedIn) return (
+    <div style={{ background: C.bg, minHeight: "100vh", fontFamily: "'IBM Plex Sans', sans-serif", color: C.text }}>
+      <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+      <div style={{ display: "flex", alignItems: "center", padding: "10px 24px", borderBottom: `1px solid ${C.border}`, background: C.surface }}>
+        <button onClick={onHome} style={{ background: "none", border: "none", cursor: "pointer", color: C.teal, fontSize: 13, fontWeight: 600, fontFamily: "'IBM Plex Sans'", padding: 0 }}>← Bayesian Module</button>
+      </div>
+      <div style={{ maxWidth: 440, margin: "80px auto 0", textAlign: "center" }}>
+        <div style={{ fontSize: 11, letterSpacing: 5, color: C.violet, fontWeight: 600, textTransform: "uppercase", marginBottom: 16, fontFamily: "'IBM Plex Mono', monospace" }}>
+          Course Access
+        </div>
+        <h2 style={{ fontSize: 24, fontWeight: 700, color: C.white, margin: "0 0 12px" }}>
+          Sign in to continue
+        </h2>
+        <p style={{ fontSize: 14, color: C.textSoft, lineHeight: 1.65, marginBottom: 32 }}>
+          Create a free account or sign in to access the Bayesian workbench.
+        </p>
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <SignIn routing="hash" />
+        </div>
+      </div>
+    </div>
+  );
+  return children;
+}
+
 function Home({ onNavigate }) {
   const [hovered, setHovered] = useState(null);
+  const { isSignedIn, user, enabled } = useAuth();
 
   return (
     <div style={{ background: C.bg, minHeight: "100vh", fontFamily: "'IBM Plex Sans', sans-serif", color: C.text }}>
       <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+      {/* Auth nav */}
+      {enabled && (
+        <div style={{ display: "flex", justifyContent: "flex-end", alignItems: "center", padding: "10px 24px", borderBottom: `1px solid ${C.border}`, background: C.surface }}>
+          {isSignedIn ? (
+            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+              <span style={{ fontSize: 12, color: C.textDim }}>{user?.primaryEmailAddress?.emailAddress}</span>
+              <UserButton afterSignOutUrl="/" />
+            </div>
+          ) : (
+            <SignInButton mode="modal">
+              <button style={{ background: "none", border: `1px solid ${C.border}`, borderRadius: 6, cursor: "pointer", color: C.violet, fontSize: 12, fontWeight: 600, padding: "6px 16px", fontFamily: "'IBM Plex Sans'" }}>
+                Sign In
+              </button>
+            </SignInButton>
+          )}
+        </div>
+      )}
 
       {/* Hero */}
       <div style={{ borderBottom: `1px solid ${C.border}`, padding: "80px 32px 72px", background: `linear-gradient(180deg, ${C.surface} 0%, ${C.bg} 100%)` }}>
@@ -173,6 +237,6 @@ export default function App() {
     window.scrollTo(0, 0);
   };
 
-  if (page === "workbench") return <BayesianWorkbench onBack={() => navigate("home")} />;
+  if (page === "workbench") return <AuthGate onHome={() => navigate("home")}><BayesianWorkbench onBack={() => navigate("home")} /></AuthGate>;
   return <Home onNavigate={navigate} />;
 }
